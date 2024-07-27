@@ -59,3 +59,19 @@ body {
     flex-direction: column;
     gap: 1rem;
 }
+
+.operator-button {
+    background-color: #7FD296;
+}
+
+.operand-button {
+    background-color: #3A7868;
+}
+
+.clear-button {
+    background-color: #374945;
+}
+
+#equals-button {
+    background-color: #FA0250;
+}
