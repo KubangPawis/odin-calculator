@@ -50,6 +50,10 @@ function setButtonEvent() {
                 numBuffer = "";
                 operationInput.textContent += buttonValue;
                 operator = buttonValue;
+            } else if (e.target.id === "clear-single") {
+                operationInput.textContent = operationInput.textContent.slice(0, -1);
+            } else if (e.target.id === "clear-all") {
+                operationInput.textContent = "";
             } else if (e.target.id === "equals-button") {
                 secondNum = Number(numBuffer);
                 numBuffer = "";
