@@ -48,6 +48,17 @@ button:hover {
     background-color: #CBFFD9;
     border-radius: 10px;
     flex: 1 1 0;
+    display: flex;
+}
+
+.entry-field {
+    margin: 1.5rem 2.5rem;
+    font-size: 3rem;
+    font-weight: 700;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
 .keypad-area {
