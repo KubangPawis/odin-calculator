@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+button {
+    width: 112px;
+    height: 72px;
+    border: none;
+    border-radius: 5px;
+}
+
 body {
     background-image: linear-gradient(135deg,
         #5E6C5A,
