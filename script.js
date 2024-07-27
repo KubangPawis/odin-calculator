@@ -35,14 +35,32 @@ function operate(firstNum, secondNum, operator) {
 
 function setButtonEvent() {
     const operationInput = document.querySelector(".operation-input");
+    const operationResult = document.querySelector(".operation-result");
     const buttons = document.querySelectorAll("button");
     buttons.forEach(button => {
         button.addEventListener("click", (e) => {
             const buttonValue = buttonMapping[e.target.id];
-            operationInput.textContent += buttonValue;
-            operator = buttonValue;
+
+            if (e.target.classList.contains("operand-button")) {
+                operationInput.textContent += buttonValue;
+                numBuffer += buttonValue;
+                console.log("Buffer: " + numBuffer);
+            } else if (e.target.classList.contains("operator-button")) {
+                firstNum = Number(numBuffer);
+                numBuffer = "";
+                operationInput.textContent += buttonValue;
+                operator = buttonValue;
+            } else if (e.target.id === "equals-button") {
+                secondNum = Number(numBuffer);
+                numBuffer = "";
+                const result = operate(firstNum, secondNum, operator);
+                console.log("First Number: " + firstNum);
+                console.log("Second Number: " + secondNum);
+                console.log("Result: " + result);
+                operationResult.textContent = `= ${result}`;
+            }
         });
-    });
+    })
 }
 
 const buttonMapping = {
@@ -61,8 +79,10 @@ const buttonMapping = {
     "operand-9": 9
 }
 
-let firstNum;
+let firstNum = 0;
+let numBuffer = "";
 let secondNum;
 let operator;
+
 
 setButtonEvent();
