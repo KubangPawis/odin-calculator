@@ -48,15 +48,15 @@ function setButtonEvent() {
                     entryField.textContent = "";
                     resetState = false;
                 }
-                if (equationChainingState) {
+                if (recentEquationState) {
                     equationStage.textContent = "";
                     secondNum = null;
                 }
                 entryField.textContent += buttonValue;
-                equationChainingState = false;
+                recentEquationState = false;
             } else if (e.target.classList.contains("operator-button")) {
                 const entryFieldValue = entryField.textContent;
-                if (equationChainingState) {
+                if (recentEquationState) {
                     firstNum = result;
                     secondNum = null;
                 } else {
@@ -66,7 +66,7 @@ function setButtonEvent() {
                 operator = buttonValue;
                 stageEquation();
                 resetState = true;
-                equationChainingState = false;
+                recentEquationState = false;
             } else if (e.target.id === "clear-single") {
                 const entryFieldValue = entryField.textContent;
                 if (entryFieldValue.length < 2) {
@@ -74,7 +74,7 @@ function setButtonEvent() {
                 } else {
                     entryField.textContent = entryField.textContent.slice(0, -1);
                 }
-                equationChainingState = false;
+                recentEquationState = false;
             } else if (e.target.id === "clear-all") {
                 entryField.textContent = "";
                 equationStage.textContent = "";
@@ -86,7 +86,7 @@ function setButtonEvent() {
                 stageEquation();
                 entryField.textContent = `${result}`;
                 resetState = true;
-                equationChainingState = true;
+                recentEquationState = true;
 
                 console.log("First Number: " + firstNum);
                 console.log("Second Number: " + secondNum);
@@ -103,7 +103,7 @@ function prepareCalculator() {
     secondNum = null;
     operator = null;
     resetState = true;
-    equationChainingState = false;
+    recentEquationState = false;
 }
 
 function stageEquation() {
@@ -138,7 +138,7 @@ let secondNum = null;
 let operator = null;
 let result;
 let resetState = true;
-let equationChainingState = false;
+let recentEquationState = false;
 
 prepareCalculator();
 setButtonEvent();
