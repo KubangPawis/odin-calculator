@@ -59,6 +59,8 @@ function setButtonEvent() {
                 numBuffer = "";
                 entryField.textContent += buttonValue;
                 operator = buttonValue;
+                stageEquation();
+                resetState = true;
                 recentEquationState = false;
             } else if (e.target.id === "clear-single") {
                 entryField.textContent = entryField.textContent.slice(0, -1);
@@ -75,7 +77,7 @@ function setButtonEvent() {
                     firstNum = Number(numBuffer);
                 }
                 result = operate(firstNum, secondNum, operator);
-                equationStage.textContent = `${firstNum} ${operator} ${secondNum}`;
+                stageEquation();
                 entryField.textContent = `${result}`;
                 numBuffer = "";
                 resetState = true;
@@ -98,6 +100,17 @@ function prepareCalculator() {
     operator = null;
     resetState = true;
     recentEquationState = false;
+}
+
+function stageEquation() {
+    const equationStage = document.querySelector("#equation-stage");
+    let equationToStage;
+    if (!secondNum) {
+        equationToStage = `${firstNum} ${operator}`;
+    } else {
+        equationToStage = `${firstNum} ${operator} ${secondNum}`;
+    }
+    equationStage.textContent = equationToStage;
 }
 
 const buttonMapping = {
