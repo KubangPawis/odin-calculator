@@ -34,28 +34,28 @@ function operate(firstNum, secondNum, operator) {
 }
 
 function setButtonEvent() {
-    const operationInput = document.querySelector(".operation-input");
-    const operationResult = document.querySelector(".operation-result");
+    const equationStage = document.querySelector("#equation-stage");
+    const entryField = document.querySelector("#entry-field");
     const buttons = document.querySelectorAll("button");
     buttons.forEach(button => {
         button.addEventListener("click", (e) => {
             const buttonValue = buttonMapping[e.target.id];
 
             if (e.target.classList.contains("operand-button")) {
-                operationInput.textContent += buttonValue;
+                entryField.textContent += buttonValue;
                 numBuffer += buttonValue;
                 console.log("Buffer: " + numBuffer);
             } else if (e.target.classList.contains("operator-button")) {
                 firstNum = Number(numBuffer);
                 numBuffer = "";
-                operationInput.textContent += buttonValue;
+                entryField.textContent += buttonValue;
                 operator = buttonValue;
             } else if (e.target.id === "clear-single") {
-                operationInput.textContent = operationInput.textContent.slice(0, -1);
+                entryField.textContent = entryField.textContent.slice(0, -1);
                 numBuffer = numBuffer.slice(0, -1);
             } else if (e.target.id === "clear-all") {
-                operationInput.textContent = "";
-                operationResult.textContent = "";
+                entryField.textContent = "";
+                equationStage.textContent = "";
                 numBuffer = "";
                 firstNum = null;
                 secondNum = null;
@@ -67,7 +67,7 @@ function setButtonEvent() {
                 console.log("First Number: " + firstNum);
                 console.log("Second Number: " + secondNum);
                 console.log("Result: " + result);
-                operationResult.textContent = `= ${result}`;
+                equationStage.textContent = `= ${result}`;
             }
         });
     })
