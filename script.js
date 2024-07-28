@@ -83,7 +83,7 @@ function setButtonEvent() {
                 prepareCalculator();
             } else if (e.target.id === "equals-button") {
                 const entryFieldValue = entryField.textContent;
-                if (recentEquationState) {
+                if (recentEquationState || !operator) {
                     firstNum = Number(entryFieldValue);
                 } else {
                     secondNum = Number(entryFieldValue);
@@ -115,7 +115,9 @@ function prepareCalculator() {
 function stageEquation() {
     const equationStage = document.querySelector("#equation-stage");
     let equationToStage;
-    if (!secondNum) {
+    if (!operator) {
+        equationToStage = `${firstNum} =`;
+    } else if (!secondNum) {
         equationToStage = `${firstNum} ${operator}`;
     } else {
         equationToStage = `${firstNum} ${operator} ${secondNum} =`;
