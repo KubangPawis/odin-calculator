@@ -63,8 +63,13 @@ function setButtonEvent() {
                 resetState = true;
                 recentEquationState = false;
             } else if (e.target.id === "clear-single") {
-                entryField.textContent = entryField.textContent.slice(0, -1);
-                numBuffer = numBuffer.slice(0, -1);
+                const entryFieldValue = entryField.textContent;
+                if (entryFieldValue.length < 2) {
+                    entryField.textContent = "0";
+                } else {
+                    entryField.textContent = entryField.textContent.slice(0, -1);
+                    numBuffer = numBuffer.slice(0, -1);
+                }
                 recentEquationState = false;
             } else if (e.target.id === "clear-all") {
                 entryField.textContent = "";
