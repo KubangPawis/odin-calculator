@@ -49,10 +49,10 @@ function setButtonEvent() {
                     resetState = false;
                 }
                 entryField.textContent += buttonValue;
-                recentEquationState = false;
+                equationChainingState = false;
             } else if (e.target.classList.contains("operator-button")) {
                 const entryFieldValue = entryField.textContent;
-                if (recentEquationState) {
+                if (equationChainingState) {
                     firstNum = result;
                     secondNum = null;
                 } else {
@@ -62,7 +62,7 @@ function setButtonEvent() {
                 operator = buttonValue;
                 stageEquation();
                 resetState = true;
-                recentEquationState = false;
+                equationChainingState = false;
             } else if (e.target.id === "clear-single") {
                 const entryFieldValue = entryField.textContent;
                 if (entryFieldValue.length < 2) {
@@ -70,7 +70,7 @@ function setButtonEvent() {
                 } else {
                     entryField.textContent = entryField.textContent.slice(0, -1);
                 }
-                recentEquationState = false;
+                equationChainingState = false;
             } else if (e.target.id === "clear-all") {
                 entryField.textContent = "";
                 equationStage.textContent = "";
@@ -82,7 +82,7 @@ function setButtonEvent() {
                 stageEquation();
                 entryField.textContent = `${result}`;
                 resetState = true;
-                recentEquationState = true;
+                equationChainingState = true;
 
                 console.log("First Number: " + firstNum);
                 console.log("Second Number: " + secondNum);
@@ -99,7 +99,7 @@ function prepareCalculator() {
     secondNum = null;
     operator = null;
     resetState = true;
-    recentEquationState = false;
+    equationChainingState = false;
 }
 
 function stageEquation() {
@@ -108,7 +108,7 @@ function stageEquation() {
     if (!secondNum) {
         equationToStage = `${firstNum} ${operator}`;
     } else {
-        equationToStage = `${firstNum} ${operator} ${secondNum}`;
+        equationToStage = `${firstNum} ${operator} ${secondNum} =`;
     }
     equationStage.textContent = equationToStage;
 }
@@ -134,7 +134,7 @@ let secondNum = null;
 let operator = null;
 let result;
 let resetState = true;
-let recentEquationState = false;
+let equationChainingState = false;
 
 prepareCalculator();
 setButtonEvent();
