@@ -48,6 +48,10 @@ function setButtonEvent() {
                     entryField.textContent = "";
                     resetState = false;
                 }
+                if (equationChainingState) {
+                    equationStage.textContent = "";
+                    secondNum = null;
+                }
                 entryField.textContent += buttonValue;
                 equationChainingState = false;
             } else if (e.target.classList.contains("operator-button")) {
