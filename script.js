@@ -51,14 +51,19 @@ function setButtonEvent() {
                 entryField.textContent += buttonValue;
                 numBuffer += buttonValue;
                 console.log("Buffer: " + numBuffer);
+                recentEquationState = false;
             } else if (e.target.classList.contains("operator-button")) {
-                firstNum = Number(numBuffer);
+                if (recentEquationState) firstNum = result;
+                else firstNum = Number(numBuffer);
+
                 numBuffer = "";
                 entryField.textContent += buttonValue;
                 operator = buttonValue;
+                recentEquationState = false;
             } else if (e.target.id === "clear-single") {
                 entryField.textContent = entryField.textContent.slice(0, -1);
                 numBuffer = numBuffer.slice(0, -1);
+                recentEquationState = false;
             } else if (e.target.id === "clear-all") {
                 entryField.textContent = "";
                 equationStage.textContent = "";
@@ -69,10 +74,12 @@ function setButtonEvent() {
                 } else {
                     firstNum = Number(numBuffer);
                 }
-                const result = operate(firstNum, secondNum, operator);
-                equationStage.textContent = `= ${result}`;
+                result = operate(firstNum, secondNum, operator);
+                equationStage.textContent = `${firstNum} ${operator} ${secondNum}`;
+                entryField.textContent = `${result}`;
                 numBuffer = "";
                 resetState = true;
+                recentEquationState = true;
 
                 console.log("First Number: " + firstNum);
                 console.log("Second Number: " + secondNum);
@@ -90,6 +97,7 @@ function prepareCalculator() {
     secondNum = null;
     operator = null;
     resetState = true;
+    recentEquationState = false;
 }
 
 const buttonMapping = {
@@ -112,7 +120,9 @@ let firstNum = 0;
 let numBuffer = "";
 let secondNum = null;
 let operator = null;
+let result;
 let resetState = true;
+let recentEquationState = false;
 
 prepareCalculator();
 setButtonEvent();
