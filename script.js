@@ -69,7 +69,9 @@ function setButtonEvent() {
                 recentEquationState = false;
             } else if (e.target.id === "clear-single") {
                 const entryFieldValue = entryField.textContent;
-                if (entryFieldValue.length < 2) {
+                if (recentEquationState) {
+                    equationStage.textContent = "";
+                } else if (entryFieldValue.length < 2) {
                     entryField.textContent = "0";
                 } else {
                     entryField.textContent = entryField.textContent.slice(0, -1);
