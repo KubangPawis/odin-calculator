@@ -56,9 +56,9 @@ function setButtonEvent() {
                 recentEquationState = false;
             } else if (e.target.classList.contains("operator-button")) {
                 const entryFieldValue = entryField.textContent;
+                secondNum = null;
                 if (recentEquationState) {
                     firstNum = result;
-                    secondNum = null;
                 } else {
                     firstNum = Number(entryFieldValue);
                 }
