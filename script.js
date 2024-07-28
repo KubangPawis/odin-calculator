@@ -83,7 +83,11 @@ function setButtonEvent() {
                 prepareCalculator();
             } else if (e.target.id === "equals-button") {
                 const entryFieldValue = entryField.textContent;
-                secondNum = Number(entryFieldValue);
+                if (recentEquationState) {
+                    firstNum = Number(entryFieldValue);
+                } else {
+                    secondNum = Number(entryFieldValue);
+                }
                 result = operate(firstNum, secondNum, operator);
                 stageEquation();
                 entryField.textContent = `${result}`;
