@@ -42,6 +42,10 @@ function setButtonEvent() {
             const buttonValue = buttonMapping[e.target.id];
 
             if (e.target.classList.contains("operand-button")) {
+                if (resetState) {
+                    entryField.textContent = "";
+                    resetState = false;
+                }
                 entryField.textContent += buttonValue;
                 numBuffer += buttonValue;
                 console.log("Buffer: " + numBuffer);
@@ -60,14 +64,16 @@ function setButtonEvent() {
                 firstNum = null;
                 secondNum = null;
                 operator = null;
+                resetState = true;
             } else if (e.target.id === "equals-button") {
                 secondNum = Number(numBuffer);
-                numBuffer = "";
                 const result = operate(firstNum, secondNum, operator);
                 console.log("First Number: " + firstNum);
                 console.log("Second Number: " + secondNum);
                 console.log("Result: " + result);
                 equationStage.textContent = `= ${result}`;
+                numBuffer = "";
+                resetState = true;
             }
         });
     })
@@ -93,6 +99,6 @@ let firstNum = 0;
 let numBuffer = "";
 let secondNum;
 let operator;
-
+let resetState = true;
 
 setButtonEvent();
