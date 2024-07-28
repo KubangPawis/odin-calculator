@@ -55,7 +55,11 @@ function setButtonEvent() {
                 numBuffer = numBuffer.slice(0, -1);
             } else if (e.target.id === "clear-all") {
                 operationInput.textContent = "";
+                operationResult.textContent = "";
                 numBuffer = "";
+                firstNum = null;
+                secondNum = null;
+                operator = null;
             } else if (e.target.id === "equals-button") {
                 secondNum = Number(numBuffer);
                 numBuffer = "";
