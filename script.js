@@ -53,11 +53,14 @@ function setButtonEvent() {
                 console.log("Buffer: " + numBuffer);
                 recentEquationState = false;
             } else if (e.target.classList.contains("operator-button")) {
-                if (recentEquationState) firstNum = result;
-                else firstNum = Number(numBuffer);
+                if (recentEquationState) {
+                    firstNum = result;
+                    secondNum = null;
+                } else {
+                    firstNum = Number(numBuffer);
+                }
 
                 numBuffer = "";
-                entryField.textContent += buttonValue;
                 operator = buttonValue;
                 stageEquation();
                 resetState = true;
