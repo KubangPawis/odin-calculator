@@ -15,6 +15,8 @@ function divide(firstNum, secondNum) {
 }
 
 function operate(firstNum, secondNum, operator) {
+    if (secondNum === null || operator === null) return firstNum;
+
     let result;
     switch (operator) {
         case "+":
@@ -61,19 +63,24 @@ function setButtonEvent() {
                 entryField.textContent = "";
                 equationStage.textContent = "";
                 numBuffer = "";
-                firstNum = null;
+                firstNum = 0;
                 secondNum = null;
                 operator = null;
                 resetState = true;
             } else if (e.target.id === "equals-button") {
-                secondNum = Number(numBuffer);
+                if (firstNum) {
+                    secondNum = Number(numBuffer);
+                } else {
+                    firstNum = Number(numBuffer);
+                }
                 const result = operate(firstNum, secondNum, operator);
-                console.log("First Number: " + firstNum);
-                console.log("Second Number: " + secondNum);
-                console.log("Result: " + result);
                 equationStage.textContent = `= ${result}`;
                 numBuffer = "";
                 resetState = true;
+
+                console.log("First Number: " + firstNum);
+                console.log("Second Number: " + secondNum);
+                console.log("Result: " + result);
             }
         });
     })
@@ -97,8 +104,8 @@ const buttonMapping = {
 
 let firstNum = 0;
 let numBuffer = "";
-let secondNum;
-let operator;
+let secondNum = null;
+let operator = null;
 let resetState = true;
 
 setButtonEvent();
