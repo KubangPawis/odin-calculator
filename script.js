@@ -62,11 +62,7 @@ function setButtonEvent() {
             } else if (e.target.id === "clear-all") {
                 entryField.textContent = "";
                 equationStage.textContent = "";
-                numBuffer = "";
-                firstNum = 0;
-                secondNum = null;
-                operator = null;
-                resetState = true;
+                prepareCalculator();
             } else if (e.target.id === "equals-button") {
                 if (firstNum) {
                     secondNum = Number(numBuffer);
@@ -84,6 +80,16 @@ function setButtonEvent() {
             }
         });
     })
+}
+
+function prepareCalculator() {
+    const entryField = document.querySelector("#entry-field");
+    entryField.textContent = 0;
+    numBuffer = "";
+    firstNum = 0;
+    secondNum = null;
+    operator = null;
+    resetState = true;
 }
 
 const buttonMapping = {
@@ -108,4 +114,5 @@ let secondNum = null;
 let operator = null;
 let resetState = true;
 
+prepareCalculator();
 setButtonEvent();
