@@ -49,18 +49,16 @@ function setButtonEvent() {
                     resetState = false;
                 }
                 entryField.textContent += buttonValue;
-                numBuffer += buttonValue;
-                console.log("Buffer: " + numBuffer);
                 recentEquationState = false;
             } else if (e.target.classList.contains("operator-button")) {
+                const entryFieldValue = entryField.textContent;
                 if (recentEquationState) {
                     firstNum = result;
                     secondNum = null;
                 } else {
-                    firstNum = Number(numBuffer);
+                    firstNum = Number(entryFieldValue);
                 }
 
-                numBuffer = "";
                 operator = buttonValue;
                 stageEquation();
                 resetState = true;
@@ -71,7 +69,6 @@ function setButtonEvent() {
                     entryField.textContent = "0";
                 } else {
                     entryField.textContent = entryField.textContent.slice(0, -1);
-                    numBuffer = numBuffer.slice(0, -1);
                 }
                 recentEquationState = false;
             } else if (e.target.id === "clear-all") {
@@ -79,15 +76,11 @@ function setButtonEvent() {
                 equationStage.textContent = "";
                 prepareCalculator();
             } else if (e.target.id === "equals-button") {
-                if (firstNum) {
-                    secondNum = Number(numBuffer);
-                } else {
-                    firstNum = Number(numBuffer);
-                }
+                const entryFieldValue = entryField.textContent;
+                secondNum = Number(entryFieldValue);
                 result = operate(firstNum, secondNum, operator);
                 stageEquation();
                 entryField.textContent = `${result}`;
-                numBuffer = "";
                 resetState = true;
                 recentEquationState = true;
 
@@ -102,7 +95,6 @@ function setButtonEvent() {
 function prepareCalculator() {
     const entryField = document.querySelector("#entry-field");
     entryField.textContent = 0;
-    numBuffer = "";
     firstNum = 0;
     secondNum = null;
     operator = null;
@@ -138,7 +130,6 @@ const buttonMapping = {
 }
 
 let firstNum = 0;
-let numBuffer = "";
 let secondNum = null;
 let operator = null;
 let result;
