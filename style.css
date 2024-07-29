@@ -35,9 +35,9 @@ button:hover {
 .container {
     min-width: 25%;
     margin-block: 10%;
-    padding: 1.75rem;
+    padding: 2.5rem;
     background-color: #5CAF9D;
-    border-radius: 15px;
+    border-radius: 40px;
     display: flex;
     flex: 1;
     flex-direction: column;
