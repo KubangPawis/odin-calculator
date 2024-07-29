@@ -42,8 +42,11 @@ function setButtonEvent() {
     buttons.forEach(button => {
         button.addEventListener("click", (e) => {
             const buttonValue = buttonMapping[e.target.id];
+            const currentButton = e.target;
 
-            if (e.target.classList.contains("operand-button")) {
+            if (currentButton.classList.contains("operand-button")) {
+                console.log("First Number: " + firstNum);
+                console.log("Operator: " + operator);
                 if (resetState) {
                     entryField.textContent = "";
                     resetState = false;
@@ -51,13 +54,18 @@ function setButtonEvent() {
                 if (recentEquationState) {
                     equationStage.textContent = "";
                     secondNum = null;
+                    operator = null;
                 }
                 entryField.textContent += buttonValue;
                 recentEquationState = false;
-            } else if (e.target.classList.contains("operator-button")) {
+            } else if (currentButton.classList.contains("operator-button")) {
                 const entryFieldValue = entryField.textContent;
                 secondNum = null;
-                if (recentEquationState) {
+                if (firstNum && operator) {
+                    calculateResult();
+                    secondNum = null;
+                    firstNum = result;
+                } else if (recentEquationState) {
                     firstNum = result;
                 } else {
                     firstNum = Number(entryFieldValue);
@@ -67,7 +75,7 @@ function setButtonEvent() {
                 stageEquation();
                 resetState = true;
                 recentEquationState = false;
-            } else if (e.target.id === "clear-single") {
+            } else if (currentButton.id === "clear-single") {
                 const entryFieldValue = entryField.textContent;
                 if (recentEquationState) {
                     equationStage.textContent = "";
@@ -77,18 +85,12 @@ function setButtonEvent() {
                     entryField.textContent = entryField.textContent.slice(0, -1);
                 }
                 recentEquationState = false;
-            } else if (e.target.id === "clear-all") {
+            } else if (currentButton.id === "clear-all") {
                 entryField.textContent = "";
                 equationStage.textContent = "";
                 prepareCalculator();
-            } else if (e.target.id === "equals-button") {
-                const entryFieldValue = entryField.textContent;
-                if (recentEquationState || !operator) {
-                    firstNum = Number(entryFieldValue);
-                } else {
-                    secondNum = Number(entryFieldValue);
-                }
-                result = operate(firstNum, secondNum, operator);
+            } else if (currentButton.id === "equals-button") {
+                calculateResult();
                 stageEquation();
                 entryField.textContent = `${result}`;
                 resetState = true;
@@ -115,14 +117,25 @@ function prepareCalculator() {
 function stageEquation() {
     const equationStage = document.querySelector("#equation-stage");
     let equationToStage;
-    if (!operator) {
+    if (!operator && secondNum === null) {
         equationToStage = `${firstNum} =`;
-    } else if (!secondNum) {
+    } else if (secondNum === null) {
         equationToStage = `${firstNum} ${operator}`;
     } else {
         equationToStage = `${firstNum} ${operator} ${secondNum} =`;
     }
     equationStage.textContent = equationToStage;
+}
+
+function calculateResult() {
+    const entryField = document.querySelector("#entry-field");
+    const entryFieldValue = entryField.textContent;
+    if (recentEquationState || !operator) {
+        firstNum = Number(entryFieldValue);
+    } else {
+        secondNum = Number(entryFieldValue);
+    }
+    result = operate(firstNum, secondNum, operator);
 }
 
 const buttonMapping = {
