@@ -16,12 +16,18 @@
         </div>
         <div id="keypad-area">
             <div class="left-container">
+                <div class="empty"></div>
                 <button class="operator-button" id="divide-button">÷</button>
                 <button class="operator-button" id="multiply-button">×</button>
                 <button class="operator-button" id="subtract-button">-</button>
                 <button class="operator-button" id="add-button">+</button>
             </div>
             <div class="right-container">
+                <div class="num-row">
+                    <button class="clear-button" id="clear-single">C</button>
+                    <button class="clear-button" id="clear-all">CE</button>
+                    <button class="clear-button" id="backspace"></button>
+                </div>
                 <div class="num-row">
                     <button class="operand-button" id="operand-1">1</button>
                     <button class="operand-button" id="operand-2">2</button>
@@ -37,9 +43,9 @@
                     <button class="operand-button" id="operand-8">8</button>
                     <button class="operand-button" id="operand-9">9</button>
                 </div>
-                <div class="result-row">
-                    <button class="clear-button" id="clear-single">C</button>
-                    <button class="clear-button" id="clear-all">CE</button>
+                <div class="num-row">
+                    <button class="operand-button" id="operand-0">0</button>
+                    <button class="operand-button" id="operand-dot">.</button>
                     <button id="equals-button">=</button>
                 </div>
             </div>

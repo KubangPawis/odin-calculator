@@ -77,6 +77,16 @@ button:hover {
 #keypad-area > div {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    gap: 1rem;
+}
+
+.left-container .empty {
+    flex: 1;
+}
+
+.num-row {
+    display: flex;
     gap: 1rem;
 }
 
@@ -90,6 +100,13 @@ button:hover {
 
 .clear-button {
     background-color: #374945;
+}
+
+#backspace {
+    background-image: url('assets/images/backspace-btn.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px;
 }
 
 #equals-button {
