@@ -100,7 +100,8 @@ button:disabled {
     background-color: #7FD296;
 }
 
-.operand-button {
+.operand-button,
+#operand-dot:disabled {
     background-color: #3A7868;
 }
 

@@ -39,6 +39,7 @@ function setButtonEvent() {
     const equationStage = document.querySelector("#equation-stage");
     const entryField = document.querySelector("#entry-field");
     const buttons = document.querySelectorAll("button");
+
     buttons.forEach(button => {
         button.addEventListener("click", (e) => {
             const buttonValue = buttonMapping[e.target.id];
@@ -84,6 +85,7 @@ function setButtonEvent() {
                 recentEquationState = false;
             } else if (currentButton.id === "clear-all") {
                 equationStage.textContent = "";
+                checkDividedByZeroState();
                 prepareCalculator();
             } else if (currentButton.id === "clear-entry") {
                 checkDividedByZeroState();
@@ -125,6 +127,11 @@ function setButtonEvent() {
                 console.log("Second Number: " + secondNum);
                 console.log("Result: " + result);
             }
+
+            //SPECIAL CASE: If entryField contains a decimal
+            if (entryField.textContent.includes(".")) decimalPresent = true;
+            else decimalPresent = false;
+            checkDecimalPresent();
         });
     })
 }
@@ -139,6 +146,7 @@ function prepareCalculator() {
     recentEquationState = false;
     dividedByZeroState = false;
     entryFieldValueChange = false;
+    decimalPresent = false;
 }
 
 function stageEquation() {
@@ -181,6 +189,16 @@ function disableOperatorAndEquals() {
     });
 }
 
+function disableDecimal() {
+    const decimalButton = document.querySelector("#operand-dot");
+    decimalButton.disabled = true;
+}
+
+function enableDecimal() {
+    const decimalButton = document.querySelector("#operand-dot");
+    decimalButton.disabled = false;
+}
+
 function enableAllButtons() {
     const buttons = document.querySelectorAll("button");
     buttons.forEach(button => {
@@ -193,6 +211,11 @@ function checkDividedByZeroState() {
         enableAllButtons();
         dividedByZeroState = false;
     }
+}
+
+function checkDecimalPresent() {
+    if (decimalPresent) disableDecimal();
+    else enableDecimal();
 }
 
 const buttonMapping = {
@@ -221,6 +244,7 @@ let resetState = true;
 let recentEquationState = false;
 let dividedByZeroState = false;
 let entryFieldValueChange = false;
+let decimalPresent = false;
 
 prepareCalculator();
 setButtonEvent();
