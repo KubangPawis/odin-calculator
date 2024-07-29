@@ -32,6 +32,10 @@ button:hover {
     opacity: 0.8;
 }
 
+button:disabled {
+    background-color: #5C5C5C;
+}
+
 .container {
     min-width: 25%;
     margin-block: 10%;
@@ -113,4 +117,8 @@ button:hover {
 
 #equals-button {
     background-color: #FA0250;
+}
+
+#equals-button:disabled {
+    background-color: #5C5C5C;   
 }

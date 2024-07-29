@@ -47,6 +47,8 @@ function setButtonEvent() {
             if (currentButton.classList.contains("operand-button")) {
                 console.log("First Number: " + firstNum);
                 console.log("Operator: " + operator);
+                checkDividedByZeroState();
+
                 if (resetState) {
                     entryField.textContent = "";
                     resetState = false;
@@ -84,6 +86,7 @@ function setButtonEvent() {
                 equationStage.textContent = "";
                 prepareCalculator();
             } else if (currentButton.id === "clear-entry") {
+                checkDividedByZeroState();
                 if (recentEquationState && secondNum !== null) {
                     equationStage.textContent = "";
                     prepareCalculator();
@@ -94,6 +97,8 @@ function setButtonEvent() {
                 recentEquationState = false;
             } else if (currentButton.id === "backspace") {
                 const entryFieldValue = entryField.textContent;
+                checkDividedByZeroState();
+
                 if (recentEquationState) {
                     equationStage.textContent = "";
                     prepareCalculator();
@@ -107,7 +112,12 @@ function setButtonEvent() {
             } else if (currentButton.id === "equals-button") {
                 calculateResult();
                 stageEquation();
-                entryField.textContent = `${result}`;
+
+                if (dividedByZeroState) {
+                    entryField.textContent = "Cannot divide by zero";
+                    disableOperatorAndEquals();
+                } else entryField.textContent = `${result}`;
+
                 resetState = true;
                 recentEquationState = true;
 
@@ -127,6 +137,7 @@ function prepareCalculator() {
     operator = null;
     resetState = true;
     recentEquationState = false;
+    dividedByZeroState = false;
     entryFieldValueChange = false;
 }
 
@@ -151,7 +162,37 @@ function calculateResult() {
     } else {
         secondNum = Number(entryFieldValue);
     }
-    result = operate(firstNum, secondNum, operator);
+
+    if (operator === "÷" && secondNum === 0) {
+        result = null;
+        dividedByZeroState = true;
+    } else {
+        result = operate(firstNum, secondNum, operator);
+    }
+}
+
+function disableOperatorAndEquals() {
+    const operatorButtons = document.querySelectorAll(".operator-button");
+    const equalsButton = document.querySelector("#equals-button");
+
+    equalsButton.disabled = true;
+    operatorButtons.forEach(button => {
+        button.disabled = true;
+    });
+}
+
+function enableAllButtons() {
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach(button => {
+        button.disabled = false;
+    });
+}
+
+function checkDividedByZeroState() {
+    if (dividedByZeroState) {
+        enableAllButtons();
+        dividedByZeroState = false;
+    }
 }
 
 const buttonMapping = {
@@ -178,6 +219,7 @@ let operator = null;
 let result;
 let resetState = true;
 let recentEquationState = false;
+let dividedByZeroState = false;
 let entryFieldValueChange = false;
 
 prepareCalculator();
