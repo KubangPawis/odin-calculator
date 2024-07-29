@@ -151,7 +151,9 @@ const buttonMapping = {
     "operand-6": 6,
     "operand-7": 7,
     "operand-8": 8,
-    "operand-9": 9
+    "operand-9": 9,
+    "operand-0": 0,
+    "operand-dot": "."
 }
 
 let firstNum = 0;
