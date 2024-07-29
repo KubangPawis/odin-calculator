@@ -56,15 +56,20 @@ function setButtonEvent() {
                     secondNum = null;
                     operator = null;
                 }
+                if (firstNum && operator) {
+                    entryFieldValueChange = true;
+                }
                 entryField.textContent += buttonValue;
                 recentEquationState = false;
             } else if (currentButton.classList.contains("operator-button")) {
                 const entryFieldValue = entryField.textContent;
                 secondNum = null;
-                if (firstNum && operator) {
+                if (entryFieldValueChange) {
                     calculateResult();
                     secondNum = null;
                     firstNum = result;
+                    entryField.textContent = result;
+                    entryFieldValueChange = false;
                 } else if (recentEquationState) {
                     firstNum = result;
                 } else {
@@ -121,6 +126,7 @@ function prepareCalculator() {
     operator = null;
     resetState = true;
     recentEquationState = false;
+    entryFieldValueChange = false;
 }
 
 function stageEquation() {
@@ -171,6 +177,7 @@ let operator = null;
 let result;
 let resetState = true;
 let recentEquationState = false;
+let entryFieldValueChange = false;
 
 prepareCalculator();
 setButtonEvent();
