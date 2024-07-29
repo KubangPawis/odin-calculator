@@ -75,20 +75,29 @@ function setButtonEvent() {
                 stageEquation();
                 resetState = true;
                 recentEquationState = false;
-            } else if (currentButton.id === "clear-single") {
+            } else if (currentButton.id === "clear-all") {
+                equationStage.textContent = "";
+                prepareCalculator();
+            } else if (currentButton.id === "clear-entry") {
+                if (recentEquationState && secondNum !== null) {
+                    equationStage.textContent = "";
+                    prepareCalculator();
+                } else {
+                    entryField.textContent = "0";
+                }
+                resetState = true;
+                recentEquationState = false;
+            } else if (currentButton.id === "backspace") {
                 const entryFieldValue = entryField.textContent;
                 if (recentEquationState) {
                     equationStage.textContent = "";
                 } else if (entryFieldValue.length < 2) {
                     entryField.textContent = "0";
+                    resetState = true;
                 } else {
                     entryField.textContent = entryField.textContent.slice(0, -1);
                 }
                 recentEquationState = false;
-            } else if (currentButton.id === "clear-all") {
-                entryField.textContent = "";
-                equationStage.textContent = "";
-                prepareCalculator();
             } else if (currentButton.id === "equals-button") {
                 calculateResult();
                 stageEquation();
