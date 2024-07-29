@@ -96,6 +96,7 @@ function setButtonEvent() {
                 const entryFieldValue = entryField.textContent;
                 if (recentEquationState) {
                     equationStage.textContent = "";
+                    prepareCalculator();
                 } else if (entryFieldValue.length < 2) {
                     entryField.textContent = "0";
                     resetState = true;
