@@ -136,6 +136,48 @@ function setButtonEvent() {
     })
 }
 
+function setKeyPressEvent() {
+    const operandMap = new Map([
+        ["1", document.querySelector("#operand-1")],
+        ["2", document.querySelector("#operand-2")],
+        ["3", document.querySelector("#operand-3")],
+        ["4", document.querySelector("#operand-4")],
+        ["5", document.querySelector("#operand-5")],
+        ["6", document.querySelector("#operand-6")],
+        ["7", document.querySelector("#operand-7")],
+        ["8", document.querySelector("#operand-8")],
+        ["9", document.querySelector("#operand-9")],
+        ["0", document.querySelector("#operand-0")],
+        [".", document.querySelector("#operand-dot")]
+    ]);
+
+    const operatorMap = new Map([
+        ["/", document.querySelector("#divide-button")],
+        ["x", document.querySelector("#multiply-button")],
+        ["*", document.querySelector("#multiply-button")],
+        ["-", document.querySelector("#subtract-button")],
+        ["+", document.querySelector("#add-button")],
+    ]);
+
+    const specialKeyMap = new Map([
+        ["Backspace", document.querySelector("#backspace")],
+        ["Enter", document.querySelector("#equals-button")]
+    ]);
+
+    document.addEventListener("keydown", (e) => {
+        const currentKey = e.key;
+        e.preventDefault();
+
+        if (operandMap.has(currentKey)) {
+            operandMap.get(currentKey).click();
+        } else if (operatorMap.has(currentKey)) {
+            operatorMap.get(currentKey).click();
+        } else if (specialKeyMap.has(currentKey)) {
+            specialKeyMap.get(currentKey).click();
+        }
+    });
+}
+
 function prepareCalculator() {
     const entryField = document.querySelector("#entry-field");
     entryField.textContent = 0;
@@ -248,3 +290,4 @@ let decimalPresent = false;
 
 prepareCalculator();
 setButtonEvent();
+setKeyPressEvent();
